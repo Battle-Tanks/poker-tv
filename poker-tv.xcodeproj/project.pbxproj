@@ -13,6 +13,11 @@
 		7241A5371CB31F8A00B15961 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7241A5361CB31F8A00B15961 /* Assets.xcassets */; };
 		7241A5421CB31F8A00B15961 /* poker_tvTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7241A5411CB31F8A00B15961 /* poker_tvTests.swift */; };
 		7241A54D1CB31F8A00B15961 /* poker_tvUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7241A54C1CB31F8A00B15961 /* poker_tvUITests.swift */; };
+		72E6D47D1CB3458C0033B3EF /* PTCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E6D47C1CB3458C0033B3EF /* PTCard.swift */; };
+		72E6D47F1CB3466A0033B3EF /* PTDealer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E6D47E1CB3466A0033B3EF /* PTDealer.swift */; };
+		72E6D4821CB34E600033B3EF /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E6D4811CB34E600033B3EF /* Evaluator.swift */; };
+		72E6D4841CB34E760033B3EF /* Lookups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E6D4831CB34E760033B3EF /* Lookups.swift */; };
+		B4C3315B28A04B4AB9DF5D30 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F956C8A846F8357F37E89BC2 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		45C69ACA720BAB17D8F6575C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		7241A52C1CB31F8A00B15961 /* poker-tv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "poker-tv.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7241A52F1CB31F8A00B15961 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7241A5311CB31F8A00B15961 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +51,12 @@
 		7241A5481CB31F8A00B15961 /* poker-tvUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "poker-tvUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7241A54C1CB31F8A00B15961 /* poker_tvUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = poker_tvUITests.swift; sourceTree = "<group>"; };
 		7241A54E1CB31F8A00B15961 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		72E6D47C1CB3458C0033B3EF /* PTCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTCard.swift; sourceTree = "<group>"; };
+		72E6D47E1CB3466A0033B3EF /* PTDealer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTDealer.swift; sourceTree = "<group>"; };
+		72E6D4811CB34E600033B3EF /* Evaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluator.swift; sourceTree = "<group>"; };
+		72E6D4831CB34E760033B3EF /* Lookups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lookups.swift; sourceTree = "<group>"; };
+		A4BE4B22A6CA12B93B810476 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F956C8A846F8357F37E89BC2 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4C3315B28A04B4AB9DF5D30 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +92,8 @@
 				7241A5401CB31F8A00B15961 /* poker-tvTests */,
 				7241A54B1CB31F8A00B15961 /* poker-tvUITests */,
 				7241A52D1CB31F8A00B15961 /* Products */,
+				CBBB5D2CF7A8D0514731B1AB /* Pods */,
+				DC6AE56680E568E75FA0B86D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,6 +110,8 @@
 		7241A52E1CB31F8A00B15961 /* poker-tv */ = {
 			isa = PBXGroup;
 			children = (
+				72E6D4801CB34E380033B3EF /* Evaluator */,
+				72E6D47B1CB345790033B3EF /* Data Model */,
 				7241A52F1CB31F8A00B15961 /* AppDelegate.swift */,
 				7241A5311CB31F8A00B15961 /* ViewController.swift */,
 				7241A5331CB31F8A00B15961 /* Main.storyboard */,
@@ -122,6 +139,41 @@
 			path = "poker-tvUITests";
 			sourceTree = "<group>";
 		};
+		72E6D47B1CB345790033B3EF /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				72E6D47C1CB3458C0033B3EF /* PTCard.swift */,
+				72E6D47E1CB3466A0033B3EF /* PTDealer.swift */,
+			);
+			name = "Data Model";
+			sourceTree = "<group>";
+		};
+		72E6D4801CB34E380033B3EF /* Evaluator */ = {
+			isa = PBXGroup;
+			children = (
+				72E6D4811CB34E600033B3EF /* Evaluator.swift */,
+				72E6D4831CB34E760033B3EF /* Lookups.swift */,
+			);
+			name = Evaluator;
+			sourceTree = "<group>";
+		};
+		CBBB5D2CF7A8D0514731B1AB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A4BE4B22A6CA12B93B810476 /* Pods.debug.xcconfig */,
+				45C69ACA720BAB17D8F6575C /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DC6AE56680E568E75FA0B86D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F956C8A846F8357F37E89BC2 /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -129,9 +181,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7241A5511CB31F8A00B15961 /* Build configuration list for PBXNativeTarget "poker-tv" */;
 			buildPhases = (
+				7C91E9BC966B809AEE6D8A3A /* Check Pods Manifest.lock */,
 				7241A5281CB31F8A00B15961 /* Sources */,
 				7241A5291CB31F8A00B15961 /* Frameworks */,
 				7241A52A1CB31F8A00B15961 /* Resources */,
+				266D7258604B8445A98C42C5 /* Embed Pods Frameworks */,
+				47DAB587683FB9F26A8450CC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -247,13 +302,65 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		266D7258604B8445A98C42C5 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		47DAB587683FB9F26A8450CC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7C91E9BC966B809AEE6D8A3A /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7241A5281CB31F8A00B15961 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72E6D4821CB34E600033B3EF /* Evaluator.swift in Sources */,
+				72E6D47D1CB3458C0033B3EF /* PTCard.swift in Sources */,
 				7241A5321CB31F8A00B15961 /* ViewController.swift in Sources */,
+				72E6D47F1CB3466A0033B3EF /* PTDealer.swift in Sources */,
 				7241A5301CB31F8A00B15961 /* AppDelegate.swift in Sources */,
+				72E6D4841CB34E760033B3EF /* Lookups.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +492,7 @@
 		};
 		7241A5521CB31F8A00B15961 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4BE4B22A6CA12B93B810476 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -397,6 +505,7 @@
 		};
 		7241A5531CB31F8A00B15961 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45C69ACA720BAB17D8F6575C /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -472,6 +581,7 @@
 				7241A5531CB31F8A00B15961 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7241A5541CB31F8A00B15961 /* Build configuration list for PBXNativeTarget "poker-tvTests" */ = {
 			isa = XCConfigurationList;
@@ -480,6 +590,7 @@
 				7241A5561CB31F8A00B15961 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7241A5571CB31F8A00B15961 /* Build configuration list for PBXNativeTarget "poker-tvUITests" */ = {
 			isa = XCConfigurationList;
@@ -488,6 +599,7 @@
 				7241A5591CB31F8A00B15961 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
