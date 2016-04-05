@@ -29,9 +29,6 @@ class PTDealer: NSObject {
             card += 1
         }
         self.deck.shuffle()
-        let eval = [self.deck[0].toEvalString(),self.deck[1].toEvalString(),self.deck[2].toEvalString(),self.deck[3].toEvalString(),self.deck[4].toEvalString(),self.deck[5].toEvalString(),self.deck[6].toEvalString()]
-        let rank = Evaluator().evaluate7(eval)
-        print(rank)
     }
 }
 

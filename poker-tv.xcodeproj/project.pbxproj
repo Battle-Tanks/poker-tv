@@ -14,6 +14,7 @@
 		7241A5421CB31F8A00B15961 /* poker_tvTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7241A5411CB31F8A00B15961 /* poker_tvTests.swift */; };
 		7241A54D1CB31F8A00B15961 /* poker_tvUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7241A54C1CB31F8A00B15961 /* poker_tvUITests.swift */; };
 		72903DBA1CB35FA2008D42AA /* PubNubKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72903DB91CB35FA2008D42AA /* PubNubKey.swift */; };
+		72903DBC1CB3602A008D42AA /* PTPubNubCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72903DBB1CB3602A008D42AA /* PTPubNubCenter.swift */; };
 		72E6D47D1CB3458C0033B3EF /* PTCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E6D47C1CB3458C0033B3EF /* PTCard.swift */; };
 		72E6D47F1CB3466A0033B3EF /* PTDealer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E6D47E1CB3466A0033B3EF /* PTDealer.swift */; };
 		72E6D4821CB34E600033B3EF /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E6D4811CB34E600033B3EF /* Evaluator.swift */; };
@@ -53,6 +54,7 @@
 		7241A54C1CB31F8A00B15961 /* poker_tvUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = poker_tvUITests.swift; sourceTree = "<group>"; };
 		7241A54E1CB31F8A00B15961 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72903DB91CB35FA2008D42AA /* PubNubKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubNubKey.swift; sourceTree = "<group>"; };
+		72903DBB1CB3602A008D42AA /* PTPubNubCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTPubNubCenter.swift; sourceTree = "<group>"; };
 		72E6D47C1CB3458C0033B3EF /* PTCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTCard.swift; sourceTree = "<group>"; };
 		72E6D47E1CB3466A0033B3EF /* PTDealer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTDealer.swift; sourceTree = "<group>"; };
 		72E6D4811CB34E600033B3EF /* Evaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluator.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				72903DB91CB35FA2008D42AA /* PubNubKey.swift */,
+				72903DBB1CB3602A008D42AA /* PTPubNubCenter.swift */,
 				72E6D47C1CB3458C0033B3EF /* PTCard.swift */,
 				72E6D47E1CB3466A0033B3EF /* PTDealer.swift */,
 			);
@@ -360,6 +363,7 @@
 			files = (
 				72E6D4821CB34E600033B3EF /* Evaluator.swift in Sources */,
 				72E6D47D1CB3458C0033B3EF /* PTCard.swift in Sources */,
+				72903DBC1CB3602A008D42AA /* PTPubNubCenter.swift in Sources */,
 				7241A5321CB31F8A00B15961 /* ViewController.swift in Sources */,
 				72E6D47F1CB3466A0033B3EF /* PTDealer.swift in Sources */,
 				72903DBA1CB35FA2008D42AA /* PubNubKey.swift in Sources */,

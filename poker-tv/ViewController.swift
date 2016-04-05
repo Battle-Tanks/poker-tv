@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var joinGameText: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
