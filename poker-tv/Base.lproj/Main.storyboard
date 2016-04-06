@@ -25,15 +25,15 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="playerCell" id="JE5-tY-4bB">
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="playerCell" id="JE5-tY-4bB" customClass="PlayerCollectionViewCell" customModule="poker_tv" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="180" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="180" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Davis" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1y6-hf-lZu">
-                                                    <rect key="frame" x="39" y="15" width="103" height="37"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Anyone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1y6-hf-lZu">
+                                                    <rect key="frame" x="36" y="15" width="110" height="44"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="32"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -62,9 +62,33 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Rr-QF-NeJ">
+                                                    <rect key="frame" x="135" y="0.0" width="45" height="45"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="D" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMI-Zq-06M">
+                                                            <rect key="frame" x="-1" y="0.0" width="46" height="45"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="32"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="22"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <outlet property="card1" destination="3Dm-KP-Dxc" id="Eg8-LR-21L"/>
+                                            <outlet property="card2" destination="xYg-QT-s78" id="8eC-3W-8kM"/>
+                                            <outlet property="chipCountLabel" destination="g4S-Xn-iOh" id="JQz-Dh-xgy"/>
+                                            <outlet property="dealerButtonLabel" destination="7Rr-QF-NeJ" id="ht6-6d-Jxe"/>
+                                            <outlet property="playerNameLabel" destination="1y6-hf-lZu" id="azL-xZ-YkO"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -72,8 +96,8 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="ZBQ-OT-4zW"/>
                                 </connections>
                             </collectionView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ace_of_clubs" translatesAutoresizingMaskIntoConstraints="NO" id="9GL-Xs-ToN">
-                                <rect key="frame" x="853" y="139" width="200" height="300"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="9GL-Xs-ToN">
+                                <rect key="frame" x="853" y="139" width="198" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -81,8 +105,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="queen_of_clubs" translatesAutoresizingMaskIntoConstraints="NO" id="82t-dV-czu">
-                                <rect key="frame" x="1083" y="139" width="200" height="300"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="82t-dV-czu">
+                                <rect key="frame" x="1083" y="139" width="198" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -90,8 +114,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="4_of_diamonds" translatesAutoresizingMaskIntoConstraints="NO" id="35o-zy-oXm">
-                                <rect key="frame" x="1313" y="139" width="200" height="300"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="35o-zy-oXm">
+                                <rect key="frame" x="1313" y="139" width="198" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -99,8 +123,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="8_of_hearts" translatesAutoresizingMaskIntoConstraints="NO" id="tM9-tX-MMi">
-                                <rect key="frame" x="623" y="139" width="200" height="300"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="tM9-tX-MMi">
+                                <rect key="frame" x="623" y="139" width="198" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -108,8 +132,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="2_of_clubs" translatesAutoresizingMaskIntoConstraints="NO" id="amX-tx-F7K">
-                                <rect key="frame" x="393" y="139" width="200" height="300"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="amX-tx-F7K">
+                                <rect key="frame" x="393" y="139" width="198" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -155,6 +179,11 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="card1" destination="amX-tx-F7K" id="t7L-Tt-xkD"/>
+                        <outlet property="card2" destination="tM9-tX-MMi" id="y59-bB-Qlo"/>
+                        <outlet property="card3" destination="9GL-Xs-ToN" id="m5M-Xe-u6l"/>
+                        <outlet property="card4" destination="82t-dV-czu" id="dXd-kJ-Wl2"/>
+                        <outlet property="card5" destination="35o-zy-oXm" id="1Y8-GH-CCs"/>
                         <outlet property="collectionView" destination="Wh4-ng-EQu" id="nac-3a-Tmg"/>
                         <outlet property="joinGameText" destination="9DW-gl-4LZ" id="Cet-Un-4KO"/>
                     </connections>
@@ -165,11 +194,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="2_of_clubs" width="222" height="323"/>
-        <image name="4_of_diamonds" width="222" height="323"/>
-        <image name="8_of_hearts" width="222" height="323"/>
-        <image name="ace_of_clubs" width="222" height="323"/>
         <image name="back" width="157" height="238"/>
-        <image name="queen_of_clubs" width="222" height="323"/>
     </resources>
 </document>

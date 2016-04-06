@@ -15,10 +15,27 @@
 		7241A54D1CB31F8A00B15961 /* poker_tvUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7241A54C1CB31F8A00B15961 /* poker_tvUITests.swift */; };
 		72903DBA1CB35FA2008D42AA /* PubNubKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72903DB91CB35FA2008D42AA /* PubNubKey.swift */; };
 		72903DBC1CB3602A008D42AA /* PTPubNubCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72903DBB1CB3602A008D42AA /* PTPubNubCenter.swift */; };
+		72903DBE1CB3627B008D42AA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72903DBD1CB3627B008D42AA /* SystemConfiguration.framework */; };
+		72903DC01CB3627F008D42AA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72903DBF1CB3627F008D42AA /* StoreKit.framework */; };
+		72903DC21CB36283008D42AA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72903DC11CB36283008D42AA /* Security.framework */; };
+		72903DC41CB36288008D42AA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72903DC31CB36288008D42AA /* QuartzCore.framework */; };
+		72903DC61CB3628C008D42AA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72903DC51CB3628C008D42AA /* CoreLocation.framework */; };
+		72903DC81CB36290008D42AA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72903DC71CB36290008D42AA /* CoreGraphics.framework */; };
+		72903DCA1CB36294008D42AA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72903DC91CB36294008D42AA /* CFNetwork.framework */; };
+		72903DCC1CB362AF008D42AA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72903DCB1CB362AF008D42AA /* AudioToolbox.framework */; };
+		72903DD31CB3635D008D42AA /* PTGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72903DD11CB3635D008D42AA /* PTGame.swift */; };
+		72903DD41CB3635D008D42AA /* PTPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72903DD21CB3635D008D42AA /* PTPlayer.swift */; };
+		72903DD71CB363F7008D42AA /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72903DD51CB363F7008D42AA /* Bolts.framework */; };
+		72903DD81CB363F7008D42AA /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72903DD61CB363F7008D42AA /* Parse.framework */; };
+		72903DDA1CB3642B008D42AA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 72903DD91CB3642B008D42AA /* libsqlite3.tbd */; };
+		72903DDC1CB36430008D42AA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 72903DDB1CB36430008D42AA /* libz.tbd */; };
+		72903DE01CB3650F008D42AA /* PTGameCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72903DDF1CB3650F008D42AA /* PTGameCenter.swift */; };
+		72903DE21CB37260008D42AA /* PTHoldemDealer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72903DE11CB37260008D42AA /* PTHoldemDealer.swift */; };
 		72E6D47D1CB3458C0033B3EF /* PTCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E6D47C1CB3458C0033B3EF /* PTCard.swift */; };
 		72E6D47F1CB3466A0033B3EF /* PTDealer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E6D47E1CB3466A0033B3EF /* PTDealer.swift */; };
 		72E6D4821CB34E600033B3EF /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E6D4811CB34E600033B3EF /* Evaluator.swift */; };
 		72E6D4841CB34E760033B3EF /* Lookups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E6D4831CB34E760033B3EF /* Lookups.swift */; };
+		72FC30541CB461BE00E2A023 /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FC30531CB461BE00E2A023 /* PlayerCollectionViewCell.swift */; };
 		B4C3315B28A04B4AB9DF5D30 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F956C8A846F8357F37E89BC2 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,10 +72,27 @@
 		7241A54E1CB31F8A00B15961 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72903DB91CB35FA2008D42AA /* PubNubKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubNubKey.swift; sourceTree = "<group>"; };
 		72903DBB1CB3602A008D42AA /* PTPubNubCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTPubNubCenter.swift; sourceTree = "<group>"; };
+		72903DBD1CB3627B008D42AA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		72903DBF1CB3627F008D42AA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		72903DC11CB36283008D42AA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		72903DC31CB36288008D42AA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		72903DC51CB3628C008D42AA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		72903DC71CB36290008D42AA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		72903DC91CB36294008D42AA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		72903DCB1CB362AF008D42AA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		72903DD11CB3635D008D42AA /* PTGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTGame.swift; sourceTree = "<group>"; };
+		72903DD21CB3635D008D42AA /* PTPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTPlayer.swift; sourceTree = "<group>"; };
+		72903DD51CB363F7008D42AA /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		72903DD61CB363F7008D42AA /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		72903DD91CB3642B008D42AA /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		72903DDB1CB36430008D42AA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		72903DDF1CB3650F008D42AA /* PTGameCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTGameCenter.swift; sourceTree = "<group>"; };
+		72903DE11CB37260008D42AA /* PTHoldemDealer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTHoldemDealer.swift; sourceTree = "<group>"; };
 		72E6D47C1CB3458C0033B3EF /* PTCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTCard.swift; sourceTree = "<group>"; };
 		72E6D47E1CB3466A0033B3EF /* PTDealer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTDealer.swift; sourceTree = "<group>"; };
 		72E6D4811CB34E600033B3EF /* Evaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluator.swift; sourceTree = "<group>"; };
 		72E6D4831CB34E760033B3EF /* Lookups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lookups.swift; sourceTree = "<group>"; };
+		72FC30531CB461BE00E2A023 /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
 		A4BE4B22A6CA12B93B810476 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F956C8A846F8357F37E89BC2 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -68,6 +102,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72903DDC1CB36430008D42AA /* libz.tbd in Frameworks */,
+				72903DDA1CB3642B008D42AA /* libsqlite3.tbd in Frameworks */,
+				72903DCC1CB362AF008D42AA /* AudioToolbox.framework in Frameworks */,
+				72903DCA1CB36294008D42AA /* CFNetwork.framework in Frameworks */,
+				72903DC81CB36290008D42AA /* CoreGraphics.framework in Frameworks */,
+				72903DC61CB3628C008D42AA /* CoreLocation.framework in Frameworks */,
+				72903DC41CB36288008D42AA /* QuartzCore.framework in Frameworks */,
+				72903DD71CB363F7008D42AA /* Bolts.framework in Frameworks */,
+				72903DD81CB363F7008D42AA /* Parse.framework in Frameworks */,
+				72903DC21CB36283008D42AA /* Security.framework in Frameworks */,
+				72903DC01CB3627F008D42AA /* StoreKit.framework in Frameworks */,
+				72903DBE1CB3627B008D42AA /* SystemConfiguration.framework in Frameworks */,
 				B4C3315B28A04B4AB9DF5D30 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -114,6 +160,7 @@
 		7241A52E1CB31F8A00B15961 /* poker-tv */ = {
 			isa = PBXGroup;
 			children = (
+				72FC30521CB4619600E2A023 /* Cells */,
 				72E6D4801CB34E380033B3EF /* Evaluator */,
 				72E6D47B1CB345790033B3EF /* Data Model */,
 				7241A52F1CB31F8A00B15961 /* AppDelegate.swift */,
@@ -146,10 +193,14 @@
 		72E6D47B1CB345790033B3EF /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
+				72903DD11CB3635D008D42AA /* PTGame.swift */,
+				72903DD21CB3635D008D42AA /* PTPlayer.swift */,
 				72903DB91CB35FA2008D42AA /* PubNubKey.swift */,
 				72903DBB1CB3602A008D42AA /* PTPubNubCenter.swift */,
 				72E6D47C1CB3458C0033B3EF /* PTCard.swift */,
 				72E6D47E1CB3466A0033B3EF /* PTDealer.swift */,
+				72903DE11CB37260008D42AA /* PTHoldemDealer.swift */,
+				72903DDF1CB3650F008D42AA /* PTGameCenter.swift */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -161,6 +212,14 @@
 				72E6D4831CB34E760033B3EF /* Lookups.swift */,
 			);
 			name = Evaluator;
+			sourceTree = "<group>";
+		};
+		72FC30521CB4619600E2A023 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				72FC30531CB461BE00E2A023 /* PlayerCollectionViewCell.swift */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 		CBBB5D2CF7A8D0514731B1AB /* Pods */ = {
@@ -175,6 +234,18 @@
 		DC6AE56680E568E75FA0B86D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				72903DDB1CB36430008D42AA /* libz.tbd */,
+				72903DD91CB3642B008D42AA /* libsqlite3.tbd */,
+				72903DD51CB363F7008D42AA /* Bolts.framework */,
+				72903DD61CB363F7008D42AA /* Parse.framework */,
+				72903DCB1CB362AF008D42AA /* AudioToolbox.framework */,
+				72903DC91CB36294008D42AA /* CFNetwork.framework */,
+				72903DC71CB36290008D42AA /* CoreGraphics.framework */,
+				72903DC51CB3628C008D42AA /* CoreLocation.framework */,
+				72903DC31CB36288008D42AA /* QuartzCore.framework */,
+				72903DC11CB36283008D42AA /* Security.framework */,
+				72903DBF1CB3627F008D42AA /* StoreKit.framework */,
+				72903DBD1CB3627B008D42AA /* SystemConfiguration.framework */,
 				F956C8A846F8357F37E89BC2 /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -361,13 +432,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72903DD41CB3635D008D42AA /* PTPlayer.swift in Sources */,
+				72903DE01CB3650F008D42AA /* PTGameCenter.swift in Sources */,
 				72E6D4821CB34E600033B3EF /* Evaluator.swift in Sources */,
 				72E6D47D1CB3458C0033B3EF /* PTCard.swift in Sources */,
 				72903DBC1CB3602A008D42AA /* PTPubNubCenter.swift in Sources */,
+				72903DE21CB37260008D42AA /* PTHoldemDealer.swift in Sources */,
 				7241A5321CB31F8A00B15961 /* ViewController.swift in Sources */,
 				72E6D47F1CB3466A0033B3EF /* PTDealer.swift in Sources */,
 				72903DBA1CB35FA2008D42AA /* PubNubKey.swift in Sources */,
 				7241A5301CB31F8A00B15961 /* AppDelegate.swift in Sources */,
+				72903DD31CB3635D008D42AA /* PTGame.swift in Sources */,
+				72FC30541CB461BE00E2A023 /* PlayerCollectionViewCell.swift in Sources */,
 				72E6D4841CB34E760033B3EF /* Lookups.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,6 +580,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "poker-tv/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.davisgossage.poker-tv";
@@ -517,6 +597,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "poker-tv/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.davisgossage.poker-tv";

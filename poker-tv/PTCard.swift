@@ -9,10 +9,10 @@
 import UIKit
 
 enum Suit: String{
-    case Clubs = "♣"
-    case Diamonds = "♦"
-    case Spades = "♠"
-    case Hearts = "♥"
+    case Clubs = "Clubs"
+    case Diamonds = "Diamonds"
+    case Spades = "Spades"
+    case Hearts = "Hearts"
 }
 
 enum Rank: Int{
@@ -30,24 +30,32 @@ class PTCard: NSObject {
     }
     
     func toEvalString() -> String{
+        return cardVal(false) + suit.rawValue
+    }
+    
+    func imageString() -> String{
+        return cardVal(true) + "_of_" + suit.rawValue.lowercaseString
+    }
+    
+    private func cardVal(fullName: Bool) -> String{
         //need to match the Evaluator.swift values, so our 0 becomes "2"... 12 becomes "A"
         var value = String(rank.rawValue + 2)
         if (rank.rawValue > 7){
             switch rank.rawValue {
             case 8:
-                value = "T"
+                value = fullName ? "ten" : "T"
             case 9:
-                value = "J"
+                value = fullName ? "jack" : "J"
             case 10:
-                value = "Q"
+                value = fullName ? "queen" : "Q"
             case 11:
-                value = "K"
+                value = fullName ? "king" : "K"
             case 12:
-                value = "A"
+                value = fullName ? "ace" : "A"
             default:
                 print("Invalid card.")
             }
         }
-        return value + suit.rawValue
+        return value
     }
 }

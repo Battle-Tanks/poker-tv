@@ -10,8 +10,7 @@ import UIKit
 import PubNub
 
 protocol PTPubNubDelegate {
-    func userAddedToChannel(username : String, uuid : String)
-    func playerMovementEvent(playerId: String, direction: String)
+    func userStateUpdate(username : String, uuid : String, state: [String: AnyObject])
 }
 
 class PTPubNubCenter: NSObject, PNObjectEventListener {
@@ -19,6 +18,7 @@ class PTPubNubCenter: NSObject, PNObjectEventListener {
     
     static let sharedInstance = PTPubNubCenter()
     
+    var gameChannel : String?
     var client : PubNub?
     
     override init(){
@@ -29,10 +29,24 @@ class PTPubNubCenter: NSObject, PNObjectEventListener {
         client?.addListener(self)
     }
     
+    func updateGameStatus(player: PTPlayer){
+        player.state["GAME_STATUS"] = player.gameStatus!.rawValue
+        setUpdatedState(player.state, uuid: player.objectId!)
+    }
+    
+    func updateChips(player: PTPlayer){
+        player.state["CHIPS"] = player.chips
+        setUpdatedState(player.state, uuid: player.objectId!)
+    }
+    
+    private func setUpdatedState(state: [String: AnyObject], uuid: String){
+        client?.setState(state, forUUID: uuid, onChannel: gameChannel!, withCompletion: nil)
+    }
     
     //MARK: channels
     
     func subscribeToChannel(channelId : String){
+        gameChannel = channelId
         client?.subscribeToChannels([channelId], withPresence: true)
         /*
         channel.bind("pusher_internal:member_added") { (member : AnyObject?) -> Void in
@@ -111,26 +125,15 @@ class PTPubNubCenter: NSObject, PNObjectEventListener {
             if (event.data.presence.state != nil){
                 let state = event.data.presence.state!
                 let username = state["username"] as! String
-                self.delegate?.userAddedToChannel(username, uuid: event.data.presence.uuid!)
+                self.delegate?.userStateUpdate(username, uuid: event.data.presence.uuid!, state: state)
             }
         }
         else {
-            let state = event.data.presence.state!
-            let direction = state["direction"] as! String
-            delegate?.playerMovementEvent(event.data.presence.uuid!, direction: direction)
+            
         }
     }
     /*
     func memberAddedToChannel(member : PresenceChannelMember) {
         delegate?.userAddedToChannel(member.userId)
     }*/
-    
-    func clientMovementEvent(data : AnyObject?) {
-        let dataDict = data as! Dictionary<String, String>
-        let movementDirection = dataDict["message"]
-        print(movementDirection)
-        let clientId = dataDict["client"]
-        delegate?.playerMovementEvent(clientId!, direction: movementDirection!)
-    }
-    
 }

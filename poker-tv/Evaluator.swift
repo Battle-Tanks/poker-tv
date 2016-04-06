@@ -18,10 +18,10 @@ public class Deck {
     init(){
         cards = [:]
         let suitDetails:[String: Int] = [
-            "♠": 0b0001,
-            "♥": 0b0010,
-            "♦": 0b0100,
-            "♣": 0b1000]
+            "Spades": 0b0001,
+            "Hearts": 0b0010,
+            "Diamonds": 0b0100,
+            "Clubs": 0b1000]
         let faces:[String:[String:Int]] = [
             "2":["index":0, "prime": 2],
             "3":["index":1, "prime": 3],

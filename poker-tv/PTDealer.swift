@@ -11,8 +11,6 @@ import UIKit
 class PTDealer: NSObject {
     var deck: [PTCard]!
     
-    static let sharedInstance = PTDealer()
-    
     override init() {
         super.init()
         shuffleNewDeck()
