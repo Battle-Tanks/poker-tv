@@ -39,6 +39,19 @@ class PTPubNubCenter: NSObject, PNObjectEventListener {
         setUpdatedState(player.state, uuid: player.objectId!)
     }
     
+    func updateHand(player: PTPlayer){
+        player.state["HAND"] = player.hand.map({ (card) -> AnyObject in
+            return card.imageString()
+        })
+        setUpdatedState(player.state, uuid: player.objectId!)
+    }
+    
+    func updateBetOptions(player: PTPlayer){
+        player.state["BET_OPTIONS"] = player.betOptions.map({ (option) -> String in
+            return option.rawValue
+        })
+    }
+    
     private func setUpdatedState(state: [String: AnyObject], uuid: String){
         client?.setState(state, forUUID: uuid, onChannel: gameChannel!, withCompletion: nil)
     }

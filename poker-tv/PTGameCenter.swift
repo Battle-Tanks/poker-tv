@@ -16,6 +16,8 @@ protocol PTGameCenterDelegate {
 class PTGameCenter: NSObject, PTPubNubDelegate {
     let MAX_PLAYERS = 12
     
+    let PLAYERS_TO_START = 2
+    
     static let sharedInstance = PTGameCenter()
     var delegate: PTGameCenterDelegate?
     
@@ -26,7 +28,10 @@ class PTGameCenter: NSObject, PTPubNubDelegate {
     
     var waitingPlayers: [PTPlayer] = []
     
+    var dealer: PTHoldemDealer
+    
     override init() {
+        dealer = PTHoldemDealer()
         super.init()
         //initialize parse
         Parse.setApplicationId("2MBFKOLhG48cWHDkvPK6cxMYOIAOnzQEUTDIxiJf", clientKey: "OJJSIsZ6uTgqdJKNRIeYHAKrSNJAjtiW5uWARd3F")
@@ -86,6 +91,13 @@ class PTGameCenter: NSObject, PTPubNubDelegate {
                     else{
                         self.waitingPlayers.append(player)
                         player.gameStatus = GAME_STATUS.STATUS_WAITING
+                    }
+                    if (self.PLAYERS_TO_START == self.players.count){
+                        //TODO: start 10 seconds after last player joins
+                        let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(1.0 * Double(NSEC_PER_SEC)))
+                        dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+                            self.dealer.dealPlayers(self.players)
+                        })
                     }
                 }
                 else{

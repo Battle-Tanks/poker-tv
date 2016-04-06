@@ -12,6 +12,7 @@ import SpriteKit
 
 enum GAME_STATUS: String {
     case STATUS_INGAME = "INGAME"
+    case STATUS_INHAND = "INHAND"
     case STATUS_WAITING = "WAITING"
 }
 
@@ -34,6 +35,16 @@ class PTPlayer: PFObject, PFSubclassing {
             PTPubNubCenter.sharedInstance.updateGameStatus(self)
         }
     }
+    var hand : [PTCard] {
+        didSet{
+            PTPubNubCenter.sharedInstance.updateHand(self)
+        }
+    }
+    var betOptions : [BET_OPTIONS] {
+        didSet{
+            PTPubNubCenter.sharedInstance.updateBetOptions(self)
+        }
+    }
     
     class func parseClassName() -> String {
         return "Player"
@@ -41,6 +52,8 @@ class PTPlayer: PFObject, PFSubclassing {
     
     override init() {
         chips = INITIAL_CHIPS
+        hand = []
+        betOptions = []
         super.init()
         PTPubNubCenter.sharedInstance.updateChips(self)
     }

@@ -43,7 +43,7 @@ class PTCard: NSObject {
         if (rank.rawValue > 7){
             switch rank.rawValue {
             case 8:
-                value = fullName ? "ten" : "T"
+                value = fullName ? "10" : "T"
             case 9:
                 value = fullName ? "jack" : "J"
             case 10:

@@ -8,12 +8,42 @@
 
 import UIKit
 
+enum BET_OPTIONS: String {
+    case CHECK = "CHECK"
+    case BET = "BET"
+    case FOLD = "FOLD"
+    case RAISE = "RAISE"
+    case ALLIN = "ALLIN"
+}
+
 class PTDealer: NSObject {
-    var deck: [PTCard]!
+    var deck: [PTCard]! = []
+    
+    var betAmount: Int = 10
+    var raiseAmount: Int = 20
+    
+    var currentBet: Int = 0
     
     override init() {
         super.init()
         shuffleNewDeck()
+    }
+    
+    func dealPlayers(players: [PTPlayer]){
+        for player in players{
+            player.gameStatus = GAME_STATUS.STATUS_INHAND
+            if players.first == player{
+                var options: [BET_OPTIONS] = []
+                if (betAmount == 0){
+                    options.append(.CHECK)
+                }
+                options.append(.RAISE)
+                options.append(.ALLIN)
+                options.append(.FOLD)
+                player.betOptions = options
+            }
+            player.hand = [deck.popLast()!,deck.popLast()!]
+        }
     }
     
     private func shuffleNewDeck(){
