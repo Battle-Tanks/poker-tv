@@ -9,14 +9,16 @@
 import UIKit
 import Parse
 
+
 protocol PTGameCenterDelegate {
     func playerAdded(player: PTPlayer)
     func playerHasAction(player: PTPlayer)
     func playerDidAct()
     func timingEvent(isPredeal: Bool, timeLeft: Int)
     func updateMessaging(message: String)
-    func potDidChange()
     func tableCardsDidChange()
+    func playersWin(players: [PTPlayer])
+    func newGame()
 }
 
 class PTGameCenter: NSObject, PTPubNubDelegate {
@@ -75,8 +77,8 @@ class PTGameCenter: NSObject, PTPubNubDelegate {
     //MARK: pubnub delegate
     
     func playerAction(playerId: String, action: BET_OPTIONS, amount: Int) {
-        delegate?.playerDidAct()
         dealer.playerAction(playerId, action: action, amount: amount)
+        delegate?.playerDidAct()
     }
     
     func userStateUpdate(username: String, uuid: String, state: [String: AnyObject]) {

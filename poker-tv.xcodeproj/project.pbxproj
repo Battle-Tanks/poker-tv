@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7201185D1CB97154006AD990 /* PTPot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7201185C1CB97154006AD990 /* PTPot.swift */; };
 		7241A5301CB31F8A00B15961 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7241A52F1CB31F8A00B15961 /* AppDelegate.swift */; };
 		7241A5321CB31F8A00B15961 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7241A5311CB31F8A00B15961 /* ViewController.swift */; };
 		7241A5351CB31F8A00B15961 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7241A5331CB31F8A00B15961 /* Main.storyboard */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		45C69ACA720BAB17D8F6575C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		7201185C1CB97154006AD990 /* PTPot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTPot.swift; sourceTree = "<group>"; };
 		7241A52C1CB31F8A00B15961 /* poker-tv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "poker-tv.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7241A52F1CB31F8A00B15961 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7241A5311CB31F8A00B15961 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				72E6D47E1CB3466A0033B3EF /* PTDealer.swift */,
 				72903DE11CB37260008D42AA /* PTHoldemDealer.swift */,
 				72903DDF1CB3650F008D42AA /* PTGameCenter.swift */,
+				7201185C1CB97154006AD990 /* PTPot.swift */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				7241A5321CB31F8A00B15961 /* ViewController.swift in Sources */,
 				72E6D47F1CB3466A0033B3EF /* PTDealer.swift in Sources */,
 				72903DBA1CB35FA2008D42AA /* PubNubKey.swift in Sources */,
+				7201185D1CB97154006AD990 /* PTPot.swift in Sources */,
 				7241A5301CB31F8A00B15961 /* AppDelegate.swift in Sources */,
 				72903DD31CB3635D008D42AA /* PTGame.swift in Sources */,
 				72FC30541CB461BE00E2A023 /* PlayerCollectionViewCell.swift in Sources */,

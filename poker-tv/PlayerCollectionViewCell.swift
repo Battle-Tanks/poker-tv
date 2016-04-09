@@ -25,7 +25,7 @@ class PlayerCollectionViewCell: UICollectionViewCell {
     func setBetAmount(amount: Int?){
         if (amount != nil){
             currentBetLabel.hidden = false
-            currentBetLabel.text = "Bet: \(amount!)"
+            currentBetLabel.text = amount == 0 ? "Check" : "Bet: \(amount!)"
         }
         else{
             currentBetLabel.hidden = true
@@ -45,11 +45,13 @@ class PlayerCollectionViewCell: UICollectionViewCell {
     }
     
     func showCards(cards: [PTCard]){
+        cardsAreVisible(true)
         card1.image = UIImage(named:cards[0].imageString())
         card2.image = UIImage(named:cards[1].imageString())
     }
     
-    func hideCards(cards: [PTCard]){
+    func hideCards(){
+        cardsAreVisible(true)
         card1.image = nil
         card2.image = nil
     }

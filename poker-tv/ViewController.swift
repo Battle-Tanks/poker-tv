@@ -21,6 +21,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     @IBOutlet var counterLabel: UILabel!
     @IBOutlet var potLabel: UILabel!
+    @IBOutlet var sidePotLabel: UILabel!
     
     let joinGameBaseText = "Join Game with Code: "
     let gameCenter = PTGameCenter.sharedInstance
@@ -69,6 +70,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             cell.setInactive(false)
         }
         
+        cell.cardsAreVisible(player.gameStatus == .STATUS_INHAND)
+        
         return cell
     }
     
@@ -85,6 +88,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func playerDidAct() {
         collectionView.reloadData()
+        potDidChange()
     }
     
     func timingEvent(isPredeal: Bool, timeLeft: Int) {
@@ -100,8 +104,32 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         counterLabel.text = message
     }
     
+    func newGame() {
+        for cell in collectionView.visibleCells() as! [PlayerCollectionViewCell]{
+            cell.hideCards()
+        }
+        potDidChange()
+    }
+    
+    func playersWin(players: [PTPlayer]) {
+        for player in players{
+            let index = gameCenter.dealer.players.indexOf(player)
+            let cell = collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: index!, inSection: 0)) as! PlayerCollectionViewCell
+            cell.showCards(player.hand)
+        }
+    }
+    
     func potDidChange() {
-        potLabel.text = "Pot: \(gameCenter.dealer.potAmount) Chips"
+        if (gameCenter.dealer.pots.count > 0){
+            potLabel.text = "Pot: \(gameCenter.dealer.pots[0].amount) Chips"
+        }
+        if (gameCenter.dealer.pots.count > 1){
+            sidePotLabel.text = "Side Pot: \(gameCenter.dealer.pots[1].amount) Chips"
+            sidePotLabel.hidden = false
+        }
+        else{
+            sidePotLabel.hidden = true
+        }
     }
     
     func tableCardsDidChange() {
@@ -109,7 +137,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let cardImages = [card1,card2,card3,card4,card5]
         if (cards.isEmpty){
             for cardImage in cardImages{
-                cardImage.image = nil
+                cardImage.image = UIImage(named: "back")
             }
         }
         for i in 0 ..< cards.count{
