@@ -24,27 +24,48 @@ class PTPlayer: PFObject, PFSubclassing {
     @NSManaged var socket_id : String
     @NSManaged var game : PTGame
     
+    var freezeUpdates: Bool = false {
+        didSet{
+            if (!freezeUpdates){
+                PTPubNubCenter.sharedInstance.syncPlayer(self)
+            }
+        }
+    }
     var chips : Int {
         didSet{
             PTPubNubCenter.sharedInstance.updateChips(self)
+            if (!freezeUpdates){
+                PTPubNubCenter.sharedInstance.syncPlayer(self)
+            }
         }
     }
     var state : [String: AnyObject] = [:]
     var gameStatus : GAME_STATUS? {
         didSet{
             PTPubNubCenter.sharedInstance.updateGameStatus(self)
+            if (!freezeUpdates){
+                PTPubNubCenter.sharedInstance.syncPlayer(self)
+            }
         }
     }
     var hand : [PTCard] {
         didSet{
             PTPubNubCenter.sharedInstance.updateHand(self)
+            if (!freezeUpdates){
+                PTPubNubCenter.sharedInstance.syncPlayer(self)
+            }
         }
     }
-    var betOptions : [BET_OPTIONS] {
+    var betOptions : (actions: [BET_OPTIONS], raiseAmount: Int, betAmount: Int, callAmount: Int)  {
         didSet{
             PTPubNubCenter.sharedInstance.updateBetOptions(self)
+            if (!freezeUpdates){
+                PTPubNubCenter.sharedInstance.syncPlayer(self)
+            }
         }
     }
+    var currentBet: Int?
+    var isDealer: Bool = false
     
     class func parseClassName() -> String {
         return "Player"
@@ -53,9 +74,13 @@ class PTPlayer: PFObject, PFSubclassing {
     override init() {
         chips = INITIAL_CHIPS
         hand = []
-        betOptions = []
+        betOptions = ([], 0, 0, 0)
         super.init()
         PTPubNubCenter.sharedInstance.updateChips(self)
+    }
+    
+    func clearBetOptions() {
+        betOptions = ([], 0, 0, 0)
     }
     
 }

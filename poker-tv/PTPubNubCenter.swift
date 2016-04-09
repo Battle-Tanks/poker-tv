@@ -11,6 +11,7 @@ import PubNub
 
 protocol PTPubNubDelegate {
     func userStateUpdate(username : String, uuid : String, state: [String: AnyObject])
+    func playerAction(playerId: String, action: BET_OPTIONS, amount: Int)
 }
 
 class PTPubNubCenter: NSObject, PNObjectEventListener {
@@ -31,25 +32,29 @@ class PTPubNubCenter: NSObject, PNObjectEventListener {
     
     func updateGameStatus(player: PTPlayer){
         player.state["GAME_STATUS"] = player.gameStatus!.rawValue
-        setUpdatedState(player.state, uuid: player.objectId!)
     }
     
     func updateChips(player: PTPlayer){
         player.state["CHIPS"] = player.chips
-        setUpdatedState(player.state, uuid: player.objectId!)
     }
     
     func updateHand(player: PTPlayer){
         player.state["HAND"] = player.hand.map({ (card) -> AnyObject in
             return card.imageString()
         })
-        setUpdatedState(player.state, uuid: player.objectId!)
     }
     
     func updateBetOptions(player: PTPlayer){
-        player.state["BET_OPTIONS"] = player.betOptions.map({ (option) -> String in
+        player.state["BET_OPTIONS"] = player.betOptions.actions.map({ (option) -> String in
             return option.rawValue
         })
+        player.state["BET_AMOUNT"] = player.betOptions.betAmount
+        player.state["RAISE_AMOUNT"] = player.betOptions.raiseAmount
+        player.state["CALL_AMOUNT"] = player.betOptions.callAmount
+    }
+    
+    func syncPlayer(player: PTPlayer){
+        setUpdatedState(player.state, uuid: player.objectId!)
     }
     
     private func setUpdatedState(state: [String: AnyObject], uuid: String){
@@ -61,21 +66,10 @@ class PTPubNubCenter: NSObject, PNObjectEventListener {
     func subscribeToChannel(channelId : String){
         gameChannel = channelId
         client?.subscribeToChannels([channelId], withPresence: true)
-        /*
-        channel.bind("pusher_internal:member_added") { (member : AnyObject?) -> Void in
-            let memberObj = PresenceChannelMember(userId: member!.valueForKey("user_id") as! String, userInfo: member!.valueForKey("user_info"))
-            self.memberAddedToChannel(memberObj)
-        }
-        channel.bind("pusher:subscription_succeeded") { (member : AnyObject?) -> Void in
-            print("!")
-        }
-        channel.bind("pusher:subscription_error") { (member : AnyObject?) -> Void in
-            print("!!")
-        }
-        channel.bind("client-movement-event", callback: clientMovementEvent)*/
     }
     
     func client(client: PubNub, didReceiveMessage message: PNMessageResult) {
+        //delegate?.playerAction(message.data.message, action: <#T##BET_OPTIONS#>, amount: <#T##Int#>)
         // Handle new message stored in message.data.message
         if message.data.actualChannel != nil {
             
@@ -88,6 +82,14 @@ class PTPubNubCenter: NSObject, PNObjectEventListener {
             // message.data.subscribedChannel
         }
         
+        let formattedMessage = message.data.message as! [String: AnyObject]
+        
+        let betOption = BET_OPTIONS(rawValue: formattedMessage["ACTION"] as! String)
+        var actualAmount = 0
+        if (formattedMessage["AMOUNT"] != nil){
+            actualAmount = formattedMessage["AMOUNT"] as! Int
+        }
+        delegate?.playerAction(formattedMessage["uuid"] as! String, action: betOption!, amount: actualAmount)
         print("Received message: \(message.data.message) on channel " +
             "\((message.data.actualChannel ?? message.data.subscribedChannel)!) at " +
             "\(message.data.timetoken)")

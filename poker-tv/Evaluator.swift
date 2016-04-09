@@ -53,16 +53,16 @@ public class Deck {
     }
 }
 
-enum RankName{
-    case HighCard
-    case OnePair
-    case TwoPairs
-    case ThreeOfAKind
-    case Straight
-    case Flush
-    case FullHouse
-    case FourOfAKind
-    case StraightFlush
+enum RankName: String{
+    case HighCard = "High Card"
+    case OnePair = "One Pair"
+    case TwoPairs = "Two Pair"
+    case ThreeOfAKind = "Three of a Kind"
+    case Straight = "Straight"
+    case Flush = "Flush"
+    case FullHouse = "Full House"
+    case FourOfAKind = "Four of a Kind"
+    case StraightFlush = "Straight Flush!"
 }
 
 private var rankStarts:[Int:RankName] = [

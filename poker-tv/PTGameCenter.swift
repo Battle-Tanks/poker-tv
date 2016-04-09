@@ -11,12 +11,15 @@ import Parse
 
 protocol PTGameCenterDelegate {
     func playerAdded(player: PTPlayer)
+    func playerHasAction(player: PTPlayer)
+    func playerDidAct()
+    func timingEvent(isPredeal: Bool, timeLeft: Int)
+    func updateMessaging(message: String)
+    func potDidChange()
+    func tableCardsDidChange()
 }
 
 class PTGameCenter: NSObject, PTPubNubDelegate {
-    let MAX_PLAYERS = 12
-    
-    let PLAYERS_TO_START = 2
     
     static let sharedInstance = PTGameCenter()
     var delegate: PTGameCenterDelegate?
@@ -24,15 +27,12 @@ class PTGameCenter: NSObject, PTPubNubDelegate {
     var pubnubCenter: PTPubNubCenter! = PTPubNubCenter()
     var activeGame: PTGame?
     
-    var players: [PTPlayer] = []
-    
-    var waitingPlayers: [PTPlayer] = []
-    
-    var dealer: PTHoldemDealer
+    var dealer: PTDealer
     
     override init() {
-        dealer = PTHoldemDealer()
+        dealer = PTDealer()
         super.init()
+        
         //initialize parse
         Parse.setApplicationId("2MBFKOLhG48cWHDkvPK6cxMYOIAOnzQEUTDIxiJf", clientKey: "OJJSIsZ6uTgqdJKNRIeYHAKrSNJAjtiW5uWARd3F")
         
@@ -74,8 +74,13 @@ class PTGameCenter: NSObject, PTPubNubDelegate {
     
     //MARK: pubnub delegate
     
+    func playerAction(playerId: String, action: BET_OPTIONS, amount: Int) {
+        delegate?.playerDidAct()
+        dealer.playerAction(playerId, action: action, amount: amount)
+    }
+    
     func userStateUpdate(username: String, uuid: String, state: [String: AnyObject]) {
-        let playerIds = self.players.map { player in
+        let playerIds = dealer.players.map { player in
             return player.objectId!
         }
         if (!playerIds.contains(uuid)){
@@ -83,22 +88,8 @@ class PTGameCenter: NSObject, PTPubNubDelegate {
             query.getObjectInBackgroundWithId(uuid) { (object: PFObject?, error: NSError?) in
                 if (error == nil){
                     let player = object as! PTPlayer
-                    if (self.players.count < self.MAX_PLAYERS){
-                        self.players.append(player)
-                        self.delegate?.playerAdded(player)
-                        player.gameStatus = GAME_STATUS.STATUS_INGAME
-                    }
-                    else{
-                        self.waitingPlayers.append(player)
-                        player.gameStatus = GAME_STATUS.STATUS_WAITING
-                    }
-                    if (self.PLAYERS_TO_START == self.players.count){
-                        //TODO: start 10 seconds after last player joins
-                        let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(1.0 * Double(NSEC_PER_SEC)))
-                        dispatch_after(dispatchTime, dispatch_get_main_queue(), {
-                            self.dealer.dealPlayers(self.players)
-                        })
-                    }
+                    self.dealer.addPlayerToTable(player)
+                    self.delegate?.playerAdded(player)
                 }
                 else{
                     //TODO: error handling
@@ -106,7 +97,7 @@ class PTGameCenter: NSObject, PTPubNubDelegate {
             }
         }
         else{
-            let player = self.players[playerIds.indexOf(uuid)!]
+            let player = self.dealer.players[playerIds.indexOf(uuid)!]
             player.state = state
         }
     }

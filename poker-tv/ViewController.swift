@@ -19,10 +19,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet var card4: UIImageView!
     @IBOutlet var card5: UIImageView!
     
+    @IBOutlet var counterLabel: UILabel!
+    @IBOutlet var potLabel: UILabel!
+    
     let joinGameBaseText = "Join Game with Code: "
     let gameCenter = PTGameCenter.sharedInstance
+    
+    var activeCell: PlayerCollectionViewCell?
 
     override func viewDidLoad() {
+        counterLabel.text = ""
         super.viewDidLoad()
         gameCenter.delegate = self
         gameCenter.createGame { (game) in
@@ -39,7 +45,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     //MARK: Collection View Data Source
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return gameCenter.players.count
+        return gameCenter.dealer.players.count
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -48,10 +54,20 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("playerCell", forIndexPath: indexPath) as! PlayerCollectionViewCell
-        let player = gameCenter.players[indexPath.row]
+        let player = gameCenter.dealer.players[indexPath.row]
         
         cell.setChipCount(player.chips)
         cell.setName(player.name)
+        cell.showDealerButton(player.isDealer)
+        
+        cell.setBetAmount(player.currentBet)
+        
+        if (player == gameCenter.dealer.actingPlayer){
+            cell.setActive(false)
+        }
+        else{
+            cell.setInactive(false)
+        }
         
         return cell
     }
@@ -61,6 +77,51 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func playerAdded(player: PTPlayer) {
         collectionView.reloadData()
+    }
+    
+    func playerHasAction(player: PTPlayer) {
+        collectionView.reloadData()
+    }
+    
+    func playerDidAct() {
+        collectionView.reloadData()
+    }
+    
+    func timingEvent(isPredeal: Bool, timeLeft: Int) {
+        if (isPredeal){
+            counterLabel.text = "Dealing in " + String(timeLeft)
+        }
+        else{
+            counterLabel.text = gameCenter.dealer.actingPlayer!.name + " has " + String(timeLeft) + " seconds to act"
+        }
+    }
+    
+    func updateMessaging(message: String) {
+        counterLabel.text = message
+    }
+    
+    func potDidChange() {
+        potLabel.text = "Pot: \(gameCenter.dealer.potAmount) Chips"
+    }
+    
+    func tableCardsDidChange() {
+        let cards = gameCenter.dealer.tableCards
+        let cardImages = [card1,card2,card3,card4,card5]
+        if (cards.isEmpty){
+            for cardImage in cardImages{
+                cardImage.image = nil
+            }
+        }
+        for i in 0 ..< cards.count{
+            UIView.animateWithDuration(0.5, animations: {
+                cardImages[i].layer.transform = CATransform3DMakeRotation(CGFloat(M_PI_2), 0, 1.0, 0)
+            }, completion: { (_) in
+                cardImages[i].image = UIImage(named: cards[i].imageString())
+                UIView.animateWithDuration(0.5, animations: {
+                    cardImages[i].layer.transform = CATransform3DIdentity
+                })
+            })
+        }
     }
 
 
