@@ -83,4 +83,8 @@ class PTPlayer: PFObject, PFSubclassing {
         betOptions = ([], 0, 0, 0)
     }
     
+    override var hash: Int{
+        return self.objectId!.hash
+    }
+    
 }

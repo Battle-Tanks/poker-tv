@@ -23,7 +23,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet var potLabel: UILabel!
     @IBOutlet var sidePotLabel: UILabel!
     
-    let joinGameBaseText = "Join Game with Code: "
+    let joinGameBaseText = "Join Game at poker-tv.xyz with Code: "
     let gameCenter = PTGameCenter.sharedInstance
     
     var activeCell: PlayerCollectionViewCell?

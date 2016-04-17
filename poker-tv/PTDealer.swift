@@ -183,6 +183,7 @@ class PTDealer: NSObject {
         actingPlayer?.clearBetOptions()
         var betAmount = amount
         if (actingPlayer?.objectId == playerId){
+            mainPot.playersInvolved.insert(actingPlayer!)
             switch action {
             case .CHECK:
                 actingPlayer?.currentBet = 0
@@ -191,9 +192,6 @@ class PTDealer: NSObject {
                 betAmount = actingPlayer!.chips
                 fallthrough
             case .BET:
-                //player1: bet 10
-                //player2: raise 10 = bet 20
-                //player1: raise 10 = bet 30
                 currentBet = betAmount
                 if (actingPlayer?.currentBet != nil){
                     currentBet += actingPlayer!.currentBet!
@@ -205,8 +203,11 @@ class PTDealer: NSObject {
                 actingPlayer!.currentBet = currentBet
                 break
             case .FOLD:
-                actingPlayer?.gameStatus = GAME_STATUS.STATUS_INGAME
-                actingPlayer?.freezeUpdates = false
+                mainPot.playersInvolved.remove(actingPlayer!)
+                let playerToFold = actingPlayer!
+                nextPlayerForBetting()
+                playerToFold.gameStatus = GAME_STATUS.STATUS_INGAME
+                playerToFold.freezeUpdates = false
                 if (playersInHand().count == 1){
                     determineWinners(false)
                 }
