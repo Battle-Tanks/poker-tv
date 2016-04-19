@@ -64,6 +64,8 @@ class PTPlayer: PFObject, PFSubclassing {
             }
         }
     }
+    //this is due for removal, as PTPot is the only thing with an accurate bet count across all pots
+    //but it stays because it's used for bet equilibrium (if bets are same, move to next round)
     var currentBet: Int?
     var isDealer: Bool = false
     

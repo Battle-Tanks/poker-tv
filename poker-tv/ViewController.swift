@@ -25,6 +25,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     @IBOutlet var splashView: UIVisualEffectView!
     
+    var cardsShown = 0
+    
     let joinGameBaseText = "Join Game at poker-tv.xyz with Code: "
     let gameCenter = PTGameCenter.sharedInstance
     
@@ -111,6 +113,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func newGame() {
+        cardsShown = 0
         for cell in collectionView.visibleCells() as! [PlayerCollectionViewCell]{
             cell.hideCards()
         }
@@ -126,16 +129,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func potDidChange() {
-        if (gameCenter.dealer.pots.count > 0){
-            potLabel.text = "Pot: \(gameCenter.dealer.pots[0].potAmount()) Chips"
-        }
-        if (gameCenter.dealer.pots.count > 1){
-            sidePotLabel.text = "Side Pot: \(gameCenter.dealer.pots[1].potAmount()) Chips"
+        //if (gameCenter.dealer.pots.count > 0){
+            potLabel.text = "Pot: \(gameCenter.dealer.mainPot.potAmount()) Chips"
+        //}
+        /*if (gameCenter.dealer.pots.count > 1){
+            sidePotLabel.text = "Side Pot: \(gameCenter.dealer.mainPot.potAmount()) Chips"
             sidePotLabel.hidden = false
         }
         else{
             sidePotLabel.hidden = true
-        }
+        }*/
     }
     
     func tableCardsDidChange() {
@@ -146,7 +149,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 cardImage.image = UIImage(named: "back")
             }
         }
-        for i in 0 ..< cards.count{
+        for i in cardsShown ..< cards.count{
             UIView.animateWithDuration(0.5, animations: {
                 cardImages[i].layer.transform = CATransform3DMakeRotation(CGFloat(M_PI_2), 0, 1.0, 0)
             }, completion: { (_) in
@@ -156,6 +159,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 })
             })
         }
+        cardsShown = cards.count
     }
 
 

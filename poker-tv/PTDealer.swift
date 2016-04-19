@@ -28,8 +28,8 @@ class PTDealer: NSObject {
     
     let MAX_PLAYERS = 12
     
-    let TIME_TO_START = 10.0
-    let TIME_TO_ACT = 60.0
+    let TIME_TO_START = 4.0
+    let TIME_TO_ACT = 30.0
     
     var deck: [PTCard]! = []
     
@@ -58,13 +58,10 @@ class PTDealer: NSObject {
     }
     var actingPlayer: PTPlayer?
     
-    var pots: [PTPot] = [PTPot()]
     var mainPot: PTPot
     
-    var evaluator = Evaluator()
-    
     override init() {
-        mainPot = pots[0]
+        mainPot = PTPot()
         super.init()
         NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.gameTimer), userInfo: nil, repeats: true)
     }
@@ -88,8 +85,17 @@ class PTDealer: NSObject {
                 PTGameCenter.sharedInstance.delegate?.timingEvent(false, timeLeft: Int(timeDifference!))
             }
             else{
-                actingPlayer!.gameStatus = GAME_STATUS.STATUS_INGAME
-                nextPlayerForBetting()
+                let playerToFold = actingPlayer!
+                mainPot.fold(playerToFold)
+                if (playersInHand().count == 2){
+                    playerToFold.gameStatus = GAME_STATUS.STATUS_INGAME
+                    determineWinners(false)
+                }
+                else{
+                    nextPlayerForBetting()
+                    playerToFold.gameStatus = GAME_STATUS.STATUS_INGAME
+                }
+                playerToFold.freezeUpdates = false
             }
         }
     }
@@ -105,9 +111,16 @@ class PTDealer: NSObject {
     }
     
     func dealGame(){
+        PTGameCenter.sharedInstance.delegate?.newGame()
         shuffleNewDeck()
         betRound = .PREFLOP
         currentBet = 0
+        for player in playersInGameWithNoChips(){
+            player.gameStatus = GAME_STATUS.STATUS_WAITING
+        }
+        while (waitingPlayersWithChips().count > 0 && playersInGame().count < self.MAX_PLAYERS){
+            waitingPlayersWithChips().first?.gameStatus = GAME_STATUS.STATUS_INGAME
+        }
         for player in players{
             player.freezeUpdates = true
             player.gameStatus = GAME_STATUS.STATUS_INHAND
@@ -115,12 +128,11 @@ class PTDealer: NSObject {
             player.hand = [deck.popLast()!, deck.popLast()!]
             player.freezeUpdates = false
         }
-        PTGameCenter.sharedInstance.delegate?.newGame()
         let previousDealer = playerWithDealerButton()
         let newDealer = playerAfterDealerButton()
         previousDealer.isDealer = false
         newDealer.isDealer = true
-        actionToPlayer(playerAfterDealerButton())
+        self.performSelector(#selector(actionToPlayer), withObject: playerAfterDealerButton(), afterDelay: 0.6)
     }
     
     func dealPlayers(players: [PTPlayer]){
@@ -135,7 +147,7 @@ class PTDealer: NSObject {
                 player.hand = [deck.popLast()!, deck.popLast()!]
             }
             else{
-                player.gameStatus = GAME_STATUS.STATUS_INGAME
+                player.gameStatus = GAME_STATUS.STATUS_WAITING
             }
         }
         if (playersInHand().count > 1){
@@ -172,12 +184,20 @@ class PTDealer: NSObject {
         return playerFilterByStatus(.STATUS_INGAME)
     }
     
+    private func playersInGameWithNoChips() -> [PTPlayer]{
+        return playersInGame().filter({ (player) -> Bool in
+            return player.chips == 0
+        })
+    }
+    
     private func playersInHand() -> [PTPlayer]{
         return playerFilterByStatus(.STATUS_INHAND)
     }
     
-    private func waitingPlayers() -> [PTPlayer]{
-        return playerFilterByStatus(.STATUS_WAITING)
+    private func waitingPlayersWithChips() -> [PTPlayer]{
+        return playerFilterByStatus(.STATUS_WAITING).filter({ (player) -> Bool in
+            return player.chips > 0
+        })
     }
     
     private func playerFilterByStatus(status: GAME_STATUS) -> [PTPlayer]{
@@ -215,7 +235,7 @@ class PTDealer: NSObject {
                 mainPot.fold(playerToFold)
                 if (playersInHand().count == 2){
                     playerToFold.gameStatus = GAME_STATUS.STATUS_INGAME
-                    playersWin(playersInHand(), winningHand: nil, broadcast: false)
+                    determineWinners(false)
                 }
                 else{
                     nextPlayerForBetting()
@@ -263,9 +283,7 @@ class PTDealer: NSObject {
         switch betRound! {
         case .PREFLOP:
             betRound = .FLOP
-            for _ in 0 ..< 3{
-                tableCards.append(deck.popLast()!)
-            }
+            tableCards.appendContentsOf([deck.popLast()!, deck.popLast()!, deck.popLast()!])
         case .FLOP:
             betRound = .TURN
             tableCards.append(deck.popLast()!)
@@ -291,51 +309,46 @@ class PTDealer: NSObject {
     }
     
     func determineWinners(broadcast: Bool) {
-        var winningHand: HandRank?
-        var winningPlayers: [PTPlayer] = []
-        _ = playersInHand().map { (player) -> Void in
-            var tableCardStrings = tableCards.map({ (card) -> String in
-                return card.toEvalString()
-            })
-            tableCardStrings.append(player.hand[0].toEvalString())
-            tableCardStrings.append(player.hand[1].toEvalString())
-            let handRank = evaluator.evaluate7(tableCardStrings)
-            if (handRank.rank == winningHand?.rank){
-                winningPlayers.append(player)
-            }
-            if (winningHand == nil || handRank.rank < winningHand!.rank){
-                winningPlayers.removeAll()
-                winningPlayers.append(player)
-                winningHand = handRank
-            }
-        }
-        playersWin(winningPlayers, winningHand: winningHand, broadcast: broadcast)
+        mainPot.calculateWinners(tableCards)
+        playersWin(broadcast)
     }
     
-    func playersWin(winningPlayers: [PTPlayer], winningHand: HandRank?, broadcast: Bool){
+    func playersWin(broadcast: Bool){
         targetTime = nil
-        var message: String?
-        let winningNames = winningPlayers.map { (player) -> String in
-            return player.name
-            }.joinWithSeparator(", ")
-        if (broadcast){
-            if (winningPlayers.count > 1){
-                message = "\(winningNames) win with \(winningHand!.name.rawValue)"
-            }
-            else{
-                message = "\(winningNames) wins with \(winningHand!.name.rawValue)"
-            }
-            PTGameCenter.sharedInstance.delegate?.showCardsForPlayers(winningPlayers)
+        var pot = mainPot
+        var message: String = ""
+        message += calculateWinnersForPot(broadcast, pot: pot, isSidepot: false)
+        while (pot.sidePot != nil){
+            pot = pot.sidePot!
+            message += calculateWinnersForPot(broadcast, pot: pot, isSidepot: true)
         }
-        else{
-            message = "\(winningNames) wins."
-        }
-        PTGameCenter.sharedInstance.delegate?.updateMessaging(message!)
-        for player in winningPlayers{
-            player.chips += mainPot.potAmount() / winningPlayers.count
-        }
+        
+        PTGameCenter.sharedInstance.delegate?.updateMessaging(message)
         mainPot = PTPot()
         self.performSelector(#selector(dealGame), withObject: nil, afterDelay: 7.0)
+    }
+    
+    func calculateWinnersForPot(broadcast: Bool, pot: PTPot, isSidepot: Bool) -> String{
+        let winningNames = pot.winningPlayers.map { (player) -> String in
+            return player.name
+        }.joinWithSeparator(", ")
+        for player in pot.winningPlayers{
+            player.chips += pot.potAmount() / pot.winningPlayers.count
+        }
+        let sidepotText = isSidepot ? " Sidepot: " : ""
+        let winningHandName = pot.winningHand == nil ? "muck" : pot.winningHand!.name.rawValue
+        if (broadcast){
+            PTGameCenter.sharedInstance.delegate?.showCardsForPlayers(pot.winningPlayers)
+            if (pot.winningPlayers.count > 1){
+                return "\(sidepotText)\(winningNames) win \(pot.potAmount() / pot.winningPlayers.count) with \(winningHandName)."
+            }
+            else{
+                return "\(sidepotText)\(winningNames) wins \(pot.potAmount()) with \(winningHandName)."
+            }
+        }
+        else{
+            return "\(sidepotText)\(winningNames) wins \(pot.potAmount())."
+        }
     }
     
     private func playerWithDealerButton() -> PTPlayer{
