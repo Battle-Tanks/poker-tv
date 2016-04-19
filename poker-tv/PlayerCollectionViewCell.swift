@@ -52,8 +52,8 @@ class PlayerCollectionViewCell: UICollectionViewCell {
     
     func hideCards(){
         cardsAreVisible(true)
-        card1.image = nil
-        card2.image = nil
+        card1.image = UIImage(named: "back")
+        card2.image = UIImage(named: "back")
     }
     
     func cardsAreVisible(visible: Bool){

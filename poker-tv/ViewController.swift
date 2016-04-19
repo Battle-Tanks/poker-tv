@@ -22,6 +22,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet var counterLabel: UILabel!
     @IBOutlet var potLabel: UILabel!
     @IBOutlet var sidePotLabel: UILabel!
+
+    @IBOutlet var splashView: UIVisualEffectView!
     
     let joinGameBaseText = "Join Game at poker-tv.xyz with Code: "
     let gameCenter = PTGameCenter.sharedInstance
@@ -41,6 +43,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func playHoldem(){
+        splashView.hidden = true
     }
     
     //MARK: Collection View Data Source
@@ -111,7 +117,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         potDidChange()
     }
     
-    func playersWin(players: [PTPlayer]) {
+    func showCardsForPlayers(players: [PTPlayer]) {
         for player in players{
             let index = gameCenter.dealer.players.indexOf(player)
             let cell = collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: index!, inSection: 0)) as! PlayerCollectionViewCell
@@ -121,10 +127,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func potDidChange() {
         if (gameCenter.dealer.pots.count > 0){
-            potLabel.text = "Pot: \(gameCenter.dealer.pots[0].amount) Chips"
+            potLabel.text = "Pot: \(gameCenter.dealer.pots[0].potAmount()) Chips"
         }
         if (gameCenter.dealer.pots.count > 1){
-            sidePotLabel.text = "Side Pot: \(gameCenter.dealer.pots[1].amount) Chips"
+            sidePotLabel.text = "Side Pot: \(gameCenter.dealer.pots[1].potAmount()) Chips"
             sidePotLabel.hidden = false
         }
         else{

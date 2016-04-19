@@ -17,7 +17,7 @@ protocol PTGameCenterDelegate {
     func timingEvent(isPredeal: Bool, timeLeft: Int)
     func updateMessaging(message: String)
     func tableCardsDidChange()
-    func playersWin(players: [PTPlayer])
+    func showCardsForPlayers(players: [PTPlayer])
     func newGame()
 }
 

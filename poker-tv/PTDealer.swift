@@ -127,13 +127,20 @@ class PTDealer: NSObject {
         shuffleNewDeck()
         betRound = .PREFLOP
         for player in players{
-            player.gameStatus = GAME_STATUS.STATUS_INHAND
-            if players.first == player{
-                player.isDealer = true
+            if (player.chips > 0){
+                player.gameStatus = GAME_STATUS.STATUS_INHAND
+                if players.first == player{
+                    player.isDealer = true
+                }
+                player.hand = [deck.popLast()!, deck.popLast()!]
             }
-            player.hand = [deck.popLast()!, deck.popLast()!]
+            else{
+                player.gameStatus = GAME_STATUS.STATUS_INGAME
+            }
         }
-        actionToPlayer(playerAfterDealerButton())
+        if (playersInHand().count > 1){
+            actionToPlayer(playerAfterDealerButton())
+        }
     }
     
     func actionToPlayer(player: PTPlayer){
@@ -154,10 +161,11 @@ class PTDealer: NSObject {
         actions.append(.ALLIN)
         actions.append(.FOLD)
         var callAmount = (player.currentBet != nil) ? currentBet - player.currentBet! : currentBet
+        let actualBetAmount = player.chips >= betAmount ? betAmount : player.chips
         if (currentBet > player.chips){
             callAmount = player.chips
         }
-        player.betOptions = (actions: actions, raiseAmount: raiseAmount, betAmount: betAmount, callAmount: callAmount)
+        player.betOptions = (actions: actions, raiseAmount: raiseAmount, betAmount: actualBetAmount, callAmount: callAmount)
     }
     
     private func playersInGame() -> [PTPlayer]{
@@ -183,10 +191,10 @@ class PTDealer: NSObject {
         actingPlayer?.clearBetOptions()
         var betAmount = amount
         if (actingPlayer?.objectId == playerId){
-            mainPot.playersInvolved.insert(actingPlayer!)
             switch action {
             case .CHECK:
                 actingPlayer?.currentBet = 0
+                mainPot.makeBet(0, player: actingPlayer!)
                 break
             case .ALLIN:
                 betAmount = actingPlayer!.chips
@@ -198,19 +206,22 @@ class PTDealer: NSObject {
                 }
                 fallthrough
             case .CALL:
-                actingPlayer!.chips -= betAmount
-                mainPot.amount += betAmount
+                actingPlayer!.chips -= amount
+                mainPot.makeBet(betAmount, player: actingPlayer!)
                 actingPlayer!.currentBet = currentBet
                 break
             case .FOLD:
-                mainPot.playersInvolved.remove(actingPlayer!)
                 let playerToFold = actingPlayer!
-                nextPlayerForBetting()
-                playerToFold.gameStatus = GAME_STATUS.STATUS_INGAME
-                playerToFold.freezeUpdates = false
-                if (playersInHand().count == 1){
-                    determineWinners(false)
+                mainPot.fold(playerToFold)
+                if (playersInHand().count == 2){
+                    playerToFold.gameStatus = GAME_STATUS.STATUS_INGAME
+                    playersWin(playersInHand(), winningHand: nil, broadcast: false)
                 }
+                else{
+                    nextPlayerForBetting()
+                    playerToFold.gameStatus = GAME_STATUS.STATUS_INGAME
+                }
+                playerToFold.freezeUpdates = false
                 return
             default:
                 break
@@ -225,7 +236,7 @@ class PTDealer: NSObject {
             if (player.currentBet == nil || player == actingPlayer){
                 return true
             }
-            return player.currentBet < currentBet
+            return player.currentBet < currentBet && player.chips > 0
         }
         if (playersDueToBet.count == 1){
             self.performSelector(#selector(advanceBettingRound), withObject: nil, afterDelay: 1.0)
@@ -238,6 +249,13 @@ class PTDealer: NSObject {
             }
             actionToPlayer(playersDueToBet[indexOfNextPlayerToAct])
         }
+    }
+    
+    func allInSituation() -> Bool{
+        let playersWithChips = playersInHand().filter { (player) -> Bool in
+            return player.chips > 0
+        }
+        return playersWithChips.count <= 1
     }
     
     func advanceBettingRound(){
@@ -261,7 +279,15 @@ class PTDealer: NSObject {
         _ = players.map { (player) -> Void in
             player.currentBet = nil
         }
-        actionToPlayer(playerAfterDealerButton())
+        if (allInSituation()){
+            targetTime = nil
+            self.performSelector(#selector(advanceBettingRound), withObject: nil, afterDelay: 3.0)
+            PTGameCenter.sharedInstance.delegate?.updateMessaging("Players are All-In")
+            PTGameCenter.sharedInstance.delegate?.showCardsForPlayers(playersInHand())
+        }
+        else{
+            actionToPlayer(playerAfterDealerButton())
+        }
     }
     
     func determineWinners(broadcast: Bool) {
@@ -283,11 +309,15 @@ class PTDealer: NSObject {
                 winningHand = handRank
             }
         }
+        playersWin(winningPlayers, winningHand: winningHand, broadcast: broadcast)
+    }
+    
+    func playersWin(winningPlayers: [PTPlayer], winningHand: HandRank?, broadcast: Bool){
         targetTime = nil
         var message: String?
         let winningNames = winningPlayers.map { (player) -> String in
             return player.name
-        }.joinWithSeparator(", ")
+            }.joinWithSeparator(", ")
         if (broadcast){
             if (winningPlayers.count > 1){
                 message = "\(winningNames) win with \(winningHand!.name.rawValue)"
@@ -295,16 +325,16 @@ class PTDealer: NSObject {
             else{
                 message = "\(winningNames) wins with \(winningHand!.name.rawValue)"
             }
-            PTGameCenter.sharedInstance.delegate?.playersWin(winningPlayers)
+            PTGameCenter.sharedInstance.delegate?.showCardsForPlayers(winningPlayers)
         }
         else{
             message = "\(winningNames) wins."
         }
         PTGameCenter.sharedInstance.delegate?.updateMessaging(message!)
         for player in winningPlayers{
-            player.chips += mainPot.amount / winningPlayers.count
+            player.chips += mainPot.potAmount() / winningPlayers.count
         }
-        mainPot.amount = 0
+        mainPot = PTPot()
         self.performSelector(#selector(dealGame), withObject: nil, afterDelay: 7.0)
     }
     
